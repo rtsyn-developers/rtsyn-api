@@ -5,6 +5,11 @@ command messages for the realtime engine and consumes telemetry events from the
 engine. Value telemetry is copied out of the telemetry values SPSC and appended
 as JSON lines to a file, `/tmp/rtsyn-values` by default.
 
+Set `RTSYN_VALUES_FILE=/dev/null` to disable that live JSONL file during a
+high-rate capture that uses another sink, such as the CSV telemetry endpoint.
+Samples still update the in-memory telemetry view and any enabled CSV sink;
+the API skips JSONL serialization and file writes for the disabled spool.
+
 It is intended to run as a small container/process next to the runtime process.
 It does not own runtime execution, plugin loading, or graph construction.
 
